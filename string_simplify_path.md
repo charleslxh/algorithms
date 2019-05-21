@@ -25,7 +25,6 @@
 1. PHP
 
 ```php
-
 class Solution 
 {
     /**
