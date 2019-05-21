@@ -15,7 +15,7 @@
 - 链表和树相关：
   
   - [tree_binary_search](https://github.com/charleslxh/algorithms/blob/master/tree_binary_search.md)：二分查找树实现
-  - [tree_equals](https://github.com/charleslxh/algorithms/edit/master/tree_equals.md)：判断两颗树是否相同
+  - [tree_equals](https://github.com/charleslxh/algorithms/blob/master/tree_equals.md)：判断两颗树是否相同
 
 - IP 地址相关：
 
