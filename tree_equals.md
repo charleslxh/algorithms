@@ -80,6 +80,12 @@ console.log(equals(BST, T5)); // false
 
 ### 方案二
 
+1. PHP
+
+待实现...
+
+2. JavaScript
+
 ```js
 function Node(v) {
     this.left = this.right = null;
