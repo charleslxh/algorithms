@@ -13,6 +13,8 @@
 - 数组相关：
 
 - 链表和树相关：
+  
+  - [tree_binary_search](https://github.com/charleslxh/algorithms/blob/master/tree_binary_search.md)：二分查找树实现
 
 - IP 地址相关：
 
