@@ -76,7 +76,7 @@ var ip2long = function (ip) {
 
 var isTrustedIp = function(targetIp, whitelist) {
     let isTrusted = false;
-    const targetIp = ip2long(targetIp);
+    targetIp = ip2long(targetIp);
     
     for (trustIp of whitelist) {
         const isRangeExpression = trustIp.indexOf('/') > -1;
