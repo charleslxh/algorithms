@@ -26,12 +26,14 @@
 
 ```php
 
-class Solution {
+class Solution 
+{
     /**
      * @param String $path
      * @return String
      */
-    function simplifyPath($path) {
+    function simplifyPath($path) 
+    {
         $paths = preg_split('/\/+/', $path);
         
         $newPaths = [];
