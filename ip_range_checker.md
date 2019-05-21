@@ -82,7 +82,7 @@ var isTrustedIp = function(targetIp, whitelist) {
         const isRangeExpression = trustIp.indexOf('/') > -1;
         
         if (isRangeExpression) {
-            const rets = explode('/', trustIp);
+            const rets = trustIp.split('/');
                 
             const mask = -1 << (32 - rets[1]);
             const subnet = ip2long(rets[0]) & mask;
