@@ -4,6 +4,8 @@
 算法列表如下：
 
 - 字符串相关：
+  
+  - [string_simplify_path](https://github.com/charleslxh/algorithms/blob/master/string_simplify_path.md)：简化路径
 
 - 数组相关：
 
