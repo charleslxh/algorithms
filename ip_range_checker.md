@@ -54,6 +54,11 @@ Class Solution
         return $isTrusted;
     }
 }
+
+\Solution::isTrustedIp('192.168.0.2', ['172.168.1.1', '192.168.0.0/16']); // true
+\Solution::isTrustedIp('172.168.1.1', ['172.168.1.1', '192.168.0.0/16']); // true
+\Solution::isTrustedIp('192.167.0.2', ['172.168.1.1', '192.168.0.0/16']); // false
+
 ```
 
 2. JavaScript
@@ -69,31 +74,37 @@ var ip2long = function (ip) {
     return (ips[0] << 24) | ips[1] << 16 | ips[2] << 8 | ips[3];
 }
 
-var isTrustedIp = function($targetIp, $whitelist) {
+var isTrustedIp = function(targetIp, whitelist) {
     let isTrusted = false;
-    const targetIp = ip2long($targetIp);
+    const targetIp = ip2long(targetIp);
     
-    for ($trustIp of $whitelist) {
-        $isRangeExpression = $trustIp.indexOf('/') > -1;
+    for (trustIp of whitelist) {
+        const isRangeExpression = trustIp.indexOf('/') > -1;
         
-        if ($isRangeExpression) {
-            $rets = explode('/', $trustIp);
+        if (isRangeExpression) {
+            const rets = explode('/', trustIp);
                 
-            $mask = -1 << (32 - $rets[1]);
-            $subnet = ip2long($rets[0]) & $mask;
+            const mask = -1 << (32 - rets[1]);
+            const subnet = ip2long(rets[0]) & mask;
                 
-            if (($targetIp & $mask) === $subnet) {
-                $isTrusted = true;
+            if ((targetIp & mask) === subnet) {
+                isTrusted = true;
                     
                 break;
             }
         } else {
-            if ($targetIp === ip2long($trustIp)) {
-                $isTrusted = true;
+            if (targetIp === ip2long(trustIp)) {
+                isTrusted = true;
                     
                 break;
             }
         }
     }
+    
+    return isTrusted;
 }
+
+isTrustedIp('192.168.0.2', ['172.168.1.1', '192.168.0.0/16']); // true
+isTrustedIp('172.168.1.1', ['172.168.1.1', '192.168.0.0/16']); // true
+isTrustedIp('192.167.0.2', ['172.168.1.1', '192.168.0.0/16']); // false
 ```
