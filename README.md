@@ -16,6 +16,7 @@
   
   - [tree_binary_search](https://github.com/charleslxh/algorithms/blob/master/tree_binary_search.md)：二分查找树实现
   - [tree_equals](https://github.com/charleslxh/algorithms/blob/master/tree_equals.md)：判断两个序列是否是同一棵树
+  - [tree_create_heap](https://github.com/charleslxh/algorithms/blob/master/tree_create_heap.md)：创建堆的实现
 
 - IP 地址相关：
 
