@@ -19,7 +19,8 @@
   - [tree_equals](https://github.com/charleslxh/algorithms/blob/master/tree_equals.md)：判断两个序列是否是同一棵树
   - [tree_create_heap](https://github.com/charleslxh/algorithms/blob/master/tree_create_heap.md)：创建堆的实现
 
-- IP 地址相关：
+- 其他：
 
   - [ip_range_checker](https://github.com/charleslxh/algorithms/blob/master/ip_range_checker.md)：判断某个 IP 是否在指定的 Trusted IP 列表中。
+  - [fabonacci](https://github.com/charleslxh/algorithms/blob/master/fabonacci.md)：斐波那契数列实现。
 
