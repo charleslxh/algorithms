@@ -23,12 +23,16 @@
 
   - [hash_table](https://github.com/charleslxh/algorithms/blob/master/hash_table.md)：哈希表结构实现。
 
-- 其他：
+- 缓存相关：
 
-  - [ip_range_checker](https://github.com/charleslxh/algorithms/blob/master/ip_range_checker.md)：判断某个 IP 是否在指定的 Trusted IP 列表中。
-  - [fabonacci](https://github.com/charleslxh/algorithms/blob/master/fabonacci.md)：斐波那契数列实现。
-  - [cache_elimination_strategy_fifo](https://github.com/charleslxh/algorithms/blob/master/cache_elimination_strategy_fifo.md)：缓存策略 - FIFO 算法实现。
+- [cache_elimination_strategy_fifo](https://github.com/charleslxh/algorithms/blob/master/cache_elimination_strategy_fifo.md)：缓存策略 - FIFO 算法实现。
   - [cache_elimination_strategy_lfu](https://github.com/charleslxh/algorithms/blob/master/cache_elimination_strategy_lfu.md)：缓存策略 - LFU 算法实现。
   - [cache_elimination_strategy_lru](https://github.com/charleslxh/algorithms/blob/master/cache_elimination_strategy_lru.md)：缓存策略 - LRU 算法实现。
 
+- 数学之美：
 
+  - [fabonacci](https://github.com/charleslxh/algorithms/blob/master/fabonacci.md)：斐波那契数列实现。
+  
+- 其他：
+
+  - [ip_range_checker](https://github.com/charleslxh/algorithms/blob/master/ip_range_checker.md)：判断某个 IP 是否在指定的 Trusted IP 列表中。
