@@ -75,6 +75,27 @@ HashTable.prototype.set = function(key, value) {
   this.table[pos] = newNode;
 }
 
+HashTable.prototype.del = function(key, value) {
+  var pos = this.getHashKey(key);
+  var node = this.table[pos];
+
+  if (node.key === key) {
+      this.table[pos] = node.next;
+      return node;
+    }
+
+  while (node.next) {
+    if (node.next.key === key) {
+      node.next = node.next.next;
+      return node.next;
+    }
+
+    node = node.next;
+  }
+
+  return null;
+}
+
 HashTable.prototype.toString = function(key, value) {
   var str = '';
 
