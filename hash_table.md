@@ -124,4 +124,13 @@ assert.strictEqual(h.toString(), 'NhOiPjQkRlSmTnUoVpWqXrYsZtAuBvCwDxEyFzGaHbIcJd
 for (var i = 0; i < keys.length; i++) {
   assert.strictEqual(h.get(keys[i]), keys[i].charCodeAt());
 }
+
+h.del('h');
+assert.strictEqual(h.toString(), 'NOiPjQkRlSmTnUoVpWqXrYsZtAuBvCwDxEyFzGaHbIcJdKeLfMg');
+
+h.del('O');
+assert.strictEqual(h.toString(), 'NiPjQkRlSmTnUoVpWqXrYsZtAuBvCwDxEyFzGaHbIcJdKeLfMg');
+
+h.del('g');
+assert.strictEqual(h.toString(), 'NiPjQkRlSmTnUoVpWqXrYsZtAuBvCwDxEyFzGaHbIcJdKeLfM');
 ```
