@@ -25,9 +25,9 @@
 
 - 缓存相关：
 
-  - [cache_evict_strategy_fifo](https://github.com/charleslxh/algorithms/blob/master/cache_evict_strategy_fifo.md)：缓存淘汰策略 - FIFO 算法实现。
-  - [cache_evict_strategy_lfu](https://github.com/charleslxh/algorithms/blob/master/cache_evict_strategy_lfu.md)：缓存淘汰策略 - LFU 算法实现。
-  - [cache_evict_strategy_lru](https://github.com/charleslxh/algorithms/blob/master/cache_evict_strategy_lru.md)：缓存淘汰策略 - LRU 算法实现。
+  - [cache_evict_policy_fifo](https://github.com/charleslxh/algorithms/blob/master/cache_evict_policy_fifo.md)：缓存淘汰策略 - FIFO 算法实现。
+  - [cache_evict_policy_lfu](https://github.com/charleslxh/algorithms/blob/master/cache_evict_policy_lfu.md)：缓存淘汰策略 - LFU 算法实现。
+  - [cache_evict_policy_lru](https://github.com/charleslxh/algorithms/blob/master/cache_evict_policy_lru.md)：缓存淘汰策略 - LRU 算法实现。
 
 - 数学之美：
 
