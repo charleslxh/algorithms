@@ -31,7 +31,7 @@
 
 - 数学之美：
 
-  - [fabonacci](https://github.com/charleslxh/algorithms/blob/master/fabonacci.md)：斐波那契数列实现。
+  - [math_fabonacci](https://github.com/charleslxh/algorithms/blob/master/math_fabonacci.md)：斐波那契数列实现。
   
 - 其他：
 
