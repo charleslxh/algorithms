@@ -25,16 +25,48 @@ LRU 存储是基于双向链表实现的，下面的图演示了它的原理。�
 ```javascript
 const assert = require('assert');
 
-const HASH_TABLE_SIZE_DEFAULT = 10;
+const DEFAULT_HASH_TABLE_SIZE = 10;
+const DEFAULT_QUEUE_SIZE = 10;
 
-function Node(key, value) {
+function ListNode(type, key, value) {
+  this.type = type;
+  this.key = key;
+  this.value = value;
+  this.next = null;
+  this.prev = null;
+}
+
+ListNode.prototype.isData = function() {
+  return this.type === 'data';
+}
+
+ListNode.prototype.isHead = function() {
+  return this.type === 'head';
+}
+
+ListNode.prototype.isTail = function() {
+  return this.type === 'tail';
+}
+
+function HashTableNode(key, value) {
   this.key = key;
   this.value = value;
   this.next = null;
 }
 
+function LRU(size) {
+  this.size = size || DEFAULT_QUEUE_SIZE;
+  this.table = new HashTable(this.size);
+  this.length = 0;
+
+  this.head = new ListNode('head');
+  this.tail = new ListNode('tail');
+  this.head.next = this.tail;
+  this.tail.prev = this.head;
+}
+
 function HashTable(size) {
-  this.size = size || HASH_TABLE_SIZE_DEFAULT;
+  this.size = size || DEFAULT_HASH_TABLE_SIZE;
   this.table = new Array(this.size);
 }
 
@@ -78,7 +110,7 @@ HashTable.prototype.set = function(key, value) {
     node = node.next;
   }
 
-  var newNode = new Node(key, value);
+  var newNode = new HashTableNode(key, value);
   newNode.next = this.table[pos];
   this.table[pos] = newNode;
 }
@@ -119,26 +151,158 @@ HashTable.prototype.toString = function(key, value) {
   return str;
 }
 
-var h = new HashTable(26);
+LRU.prototype.get = function(key) {
+  if (key === null || key === undefined) {
+    return null;
+  }
+
+  var node = this.table.get(key);
+
+  if (!node) {
+    return null;
+  }
+
+  var prev = node.prev;
+  var next = node.next;
+
+  if (prev) next.prev = prev;
+  if (next) prev.next = next;
+
+  var firstNode = this.head.next;
+  node.next = firstNode;
+  node.prev = this.head;
+  this.head.next = node;
+  firstNode.prev = node;
+
+  return node.value;
+};
+
+LRU.prototype.del = function(key) {
+  if (key === null || key === undefined) {
+    return;
+  }
+
+  var node = this.table.get(key);
+
+  if (node) {
+    var prev = node.prev;
+    var next = node.next;
+
+    if (prev) prev.next = next;
+    if (next) next.prev = prev;
+
+    this.length--;
+    delete node;
+    this.table.del(key);
+  }
+};
+
+LRU.prototype.isFull = function() {
+  return this.length >= this.size;
+}
+
+LRU.prototype.add = function(key, value) {
+  if (this.isFull()) {
+    var lastNode = this.tail.prev;
+    if (lastNode !== null && lastNode !== undefined) {
+      this.del(lastNode.key);
+    }
+  }
+
+  var newNode = new ListNode('data', key, value);
+  this.table.set(key, newNode);
+
+  var firstNode = this.head.next;
+
+  newNode.next = firstNode;
+  newNode.prev = this.head;
+  this.head.next = newNode;
+  firstNode.prev = newNode;
+
+  this.length++;
+}
+
+LRU.prototype.list = function() {
+  var nodes = [];
+  var node = this.head.next;
+
+  while(node && node.isData()) {
+    nodes.push(node);
+    node = node.next;
+  }
+
+  return nodes;
+}
+
+LRU.prototype.keys = function() {
+  var keys = [];
+  var node = this.head.next;
+
+  while(node && node.isData()) {
+    keys.push(node.key);
+    node = node.next;
+  }
+
+  return keys;
+}
+
+LRU.prototype.values = function() {
+  var values = [];
+  var node = this.head.next;
+
+  while(node && node.isData()) {
+    values.push(node.value);
+    node = node.next;
+  }
+
+  return values;
+}
+
+var h = new LRU(52);
 var keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 for (var i = 0; i < keys.length; i++) {
-  h.set(keys[i], keys.charCodeAt(i))
+  h.add(keys[i], keys.charCodeAt(i))
 }
 
 // 测试 Case
+assert.strictEqual(h.isFull(), true);
 
-assert.strictEqual(h.toString(), 'NhOiPjQkRlSmTnUoVpWqXrYsZtAuBvCwDxEyFzGaHbIcJdKeLfMg');
-for (var i = 0; i < keys.length; i++) {
-  assert.strictEqual(h.get(keys[i]), keys[i].charCodeAt());
-}
+assert.strictEqual(h.keys().toString(), 'Z,Y,X,W,V,U,T,S,R,Q,P,O,N,M,L,K,J,I,H,G,F,E,D,C,B,A,z,y,x,w,v,u,t,s,r,q,p,o,n,m,l,k,j,i,h,g,f,e,d,c,b,a');
 
-h.del('h');
-assert.strictEqual(h.toString(), 'NOiPjQkRlSmTnUoVpWqXrYsZtAuBvCwDxEyFzGaHbIcJdKeLfMg');
+assert.strictEqual(h.get('a'), 97);
 
-h.del('O');
-assert.strictEqual(h.toString(), 'NiPjQkRlSmTnUoVpWqXrYsZtAuBvCwDxEyFzGaHbIcJdKeLfMg');
+assert.strictEqual(h.keys().toString(), 'a,Z,Y,X,W,V,U,T,S,R,Q,P,O,N,M,L,K,J,I,H,G,F,E,D,C,B,A,z,y,x,w,v,u,t,s,r,q,p,o,n,m,l,k,j,i,h,g,f,e,d,c,b');
 
-h.del('g');
-assert.strictEqual(h.toString(), 'NiPjQkRlSmTnUoVpWqXrYsZtAuBvCwDxEyFzGaHbIcJdKeLfM');
+assert.strictEqual(h.get('b'), 98);
+
+assert.strictEqual(h.keys().toString(), 'b,a,Z,Y,X,W,V,U,T,S,R,Q,P,O,N,M,L,K,J,I,H,G,F,E,D,C,B,A,z,y,x,w,v,u,t,s,r,q,p,o,n,m,l,k,j,i,h,g,f,e,d,c');
+
+assert.strictEqual(h.get('Z'), 90);
+
+assert.strictEqual(h.keys().toString(), 'Z,b,a,Y,X,W,V,U,T,S,R,Q,P,O,N,M,L,K,J,I,H,G,F,E,D,C,B,A,z,y,x,w,v,u,t,s,r,q,p,o,n,m,l,k,j,i,h,g,f,e,d,c');
+
+h.add('test', 'just test');
+
+assert.strictEqual(h.length, 52);
+assert.strictEqual(h.keys().toString(), 'test,Z,b,a,Y,X,W,V,U,T,S,R,Q,P,O,N,M,L,K,J,I,H,G,F,E,D,C,B,A,z,y,x,w,v,u,t,s,r,q,p,o,n,m,l,k,j,i,h,g,f,e,d');
+
+h.add('key', 'just key');
+
+assert.strictEqual(h.length, 52);
+assert.strictEqual(h.keys().toString(), 'key,test,Z,b,a,Y,X,W,V,U,T,S,R,Q,P,O,N,M,L,K,J,I,H,G,F,E,D,C,B,A,z,y,x,w,v,u,t,s,r,q,p,o,n,m,l,k,j,i,h,g,f,e');
+
+h.del('e');
+
+assert.strictEqual(h.keys().toString(), 'key,test,Z,b,a,Y,X,W,V,U,T,S,R,Q,P,O,N,M,L,K,J,I,H,G,F,E,D,C,B,A,z,y,x,w,v,u,t,s,r,q,p,o,n,m,l,k,j,i,h,g,f');
+
+assert.strictEqual(h.isFull(), false);
+
+h.del('test');
+
+assert.strictEqual(h.keys().toString(), 'key,Z,b,a,Y,X,W,V,U,T,S,R,Q,P,O,N,M,L,K,J,I,H,G,F,E,D,C,B,A,z,y,x,w,v,u,t,s,r,q,p,o,n,m,l,k,j,i,h,g,f');
+
+h.add('test', 'just test');
+
+assert.strictEqual(h.keys().toString(), 'test,key,Z,b,a,Y,X,W,V,U,T,S,R,Q,P,O,N,M,L,K,J,I,H,G,F,E,D,C,B,A,z,y,x,w,v,u,t,s,r,q,p,o,n,m,l,k,j,i,h,g,f');
 ```
