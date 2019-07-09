@@ -16,16 +16,33 @@
 2. JavaScript
 
 ```javascript
+// 递归
 function fabonacci1(n) {
   if (n <= 2) return 1;
   return fabonaci1(n - 1) + fabonaci1(n - 2);
 }
 
+// 递归，避免重复计算
 var mem = {};
 function fabonacci2(n) {
   if (n <= 2) return 1;
   if (mem[n]) return mem[n];
   mem[n] = fabonaci2(n - 1) + fabonaci2(n - 2);
   return mem[n];
+}
+
+// 迭代
+function fabonacci3(n) {
+  if (n <= 1) return n;
+  
+  var now = 1, pre1 = 1, pre2 = 0, start = 2;
+  
+  while(start++ <= n) {
+    now = pre1 + pre2;
+    pre2 = pre1;
+    pre1 = now;
+  }
+  
+  return now;
 }
 ```
