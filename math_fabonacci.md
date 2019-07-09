@@ -32,7 +32,7 @@ function fabonacci2(n) {
 }
 
 // 迭代
-function fabonacci3(n) {
+function fabonaci3(n) {
   if (n <= 1) return n;
   
   var now = 1, pre1 = 1, pre2 = 0, start = 2;
