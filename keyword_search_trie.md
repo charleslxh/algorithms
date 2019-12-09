@@ -302,6 +302,37 @@ Dict.prototype.searchWords = function(text) {
   return words
 }
 
+Dict.prototype.replaceWords = function(text) {
+  if (text.length === 0) {
+    return text;
+  }
+
+  var bytes = Buffer.from(text)
+  var triePtr = this.root;
+  var textPtr1 = 0;
+  var textPtr2 = 0;
+
+  while (textPtr1 < text.length) {
+    if (triePtr.hasChild(text[textPtr2])) {
+      triePtr = triePtr.getChild(text[textPtr2]);
+      textPtr2++
+    } else {
+      if (triePtr.isWordEnd) {
+        for (var j = textPtr1; j < textPtr2; j++) {
+          bytes[j] = "*".charCodeAt(0)
+        }
+        textPtr1 = textPtr2;
+      } else {
+        textPtr1++
+        textPtr2 = textPtr1;
+      }
+      triePtr = this.root;
+    }
+  }
+
+  return bytes.toString()
+}
+
 var dict = new Dict()
 
 dict.addWord("hello")
@@ -325,4 +356,6 @@ console.log(dict.searchWords("hellohelloxxx中x国xxxworldxxxxxx"))
 console.log(dict.searchWords("hellohelloxxx中国xxxworldxxxxxx"))
 console.log(dict.searchWords("hellohelloxxx中美国xxxworldxxxxxx"))
 console.log(dict.searchWords("heherhershishelloworld中国美国"))
+console.log(dict.replaceWords("helloxxxwxorld")) // *****xxxwxorld
+
 ```
