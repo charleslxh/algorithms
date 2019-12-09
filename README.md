@@ -38,7 +38,7 @@
   - 敏感词过滤
   
     - [keyword_search_trie](https://github.com/charleslxh/algorithms/blob/master/keyword_search_trie.md)：敏感词查询，trie 实现。
-    - [keyword_search_trie](https://github.com/charleslxh/algorithms/blob/master/keyword_search_ac.md)：敏感词查询，AC 算法实现。
+    - [keyword_search_ac](https://github.com/charleslxh/algorithms/blob/master/keyword_search_ac.md)：敏感词查询，AC 算法实现。
 
 - 其他：
 
