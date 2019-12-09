@@ -32,7 +32,14 @@
 - 数学之美：
 
   - [math_fabonacci](https://github.com/charleslxh/algorithms/blob/master/math_fabonacci.md)：斐波那契数列实现。
+
+- 业务场景
+
+  - 敏感词过滤
   
+    - [keyword_search_trie](https://github.com/charleslxh/algorithms/blob/master/keyword_search_trie.md)：敏感词查询，trie 实现。
+    - [keyword_search_trie](https://github.com/charleslxh/algorithms/blob/master/keyword_search_ac.md)：敏感词查询，AC 算法实现。
+
 - 其他：
 
   - [ip_range_checker](https://github.com/charleslxh/algorithms/blob/master/ip_range_checker.md)：判断某个 IP 是否在指定的 Trusted IP 列表中。
