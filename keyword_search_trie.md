@@ -11,7 +11,7 @@
 
 ## 实现代码
 
-Golang 实现源码：
+1. `Golang` 实现源码：
 
 ```go
 package main
@@ -221,7 +221,7 @@ func TestTire_SearchWords(t *testing.T) {
 }
 ```
 
-Javascript 实现源码：
+2. `Javascript` 实现源码：
 
 ```js
 function TrieNode(value) {
