@@ -11,6 +11,8 @@
 
 ## 实现代码
 
+Golang 实现源码：
+
 ```go
 package main
 
@@ -217,4 +219,110 @@ func TestTire_SearchWords(t *testing.T) {
 	assert.Equal(t, []string{"hello", "hello", "美国", "world"}, dict.searchWords("hellohelloxxx中美国xxxworldxxxxxx"))
 	assert.Equal(t, []string{"he", "her", "hers", "his", "hello", "world", "中国", "美国"}, dict.searchWords("heherhershishelloworld中国美国"))
 }
+```
+
+Javascript 实现源码：
+
+```js
+function TrieNode(value) {
+  this.value = value;
+  this.isWordEnd = false;
+  this.children = {};
+}
+
+TrieNode.prototype.hasChild = function(w) {
+  return this.children[w] !== undefined && this.children[w] !== null;
+}
+
+TrieNode.prototype.getChild = function(w) {
+  if (this.hasChild(w)) {
+    return this.children[w]
+  }
+
+  return null
+}
+
+TrieNode.prototype.addChild = function(w) {
+  if (!this.hasChild(w)) {
+    trieNode = new TrieNode(w);
+    trieNode.isWordEnd = false;
+    this.children[w] = trieNode;
+  }
+
+  return this.getChild(w)
+}
+
+function Dict() {
+  this.count = 0;
+  this.root = new TrieNode(0);
+}
+
+Dict.prototype.addWord = function (word) {
+  if (word.length === 0) {
+    return
+  }
+
+  var node = this.root;
+
+  for (var i = 0; i < word.length; i++) {
+    node = node.addChild(word[i]);
+  }
+
+  node.isWordEnd = true;
+  this.count++
+}
+
+Dict.prototype.searchWords = function(text) {
+  var words = [];
+
+  if (text.length === 0) {
+    return words;
+  }
+
+  var triePtr = this.root;
+  var textPtr1 = 0;
+  var textPtr2 = 0;
+
+  while (textPtr1 < text.length) {
+    if (triePtr.hasChild(text[textPtr2])) {
+      triePtr = triePtr.getChild(text[textPtr2]);
+      textPtr2++
+    } else {
+      if (triePtr.isWordEnd) {
+        words.push(text.substring(textPtr1, textPtr2));
+        textPtr1 = textPtr2;
+      } else {
+        textPtr1++
+        textPtr2 = textPtr1;
+      }
+      triePtr = this.root;
+    }
+  }
+
+  return words
+}
+
+var dict = new Dict()
+
+dict.addWord("hello")
+dict.addWord("world")
+dict.addWord("he")
+dict.addWord("she")
+dict.addWord("her")
+dict.addWord("his")
+dict.addWord("hers")
+dict.addWord("中国")
+dict.addWord("美国")
+
+console.log(dict.searchWords("hello"))
+console.log(dict.searchWords("hello111helo"))
+console.log(dict.searchWords("helloworld"))
+console.log(dict.searchWords("helloxxxwxorld"))
+console.log(dict.searchWords("helloxxxxxxxworldxxxxxx"))
+console.log(dict.searchWords("xxhelloxxxxxxxworldxxxxxx"))
+console.log(dict.searchWords("hellohelloxxxxxxxworldxxxxxx"))
+console.log(dict.searchWords("hellohelloxxx中x国xxxworldxxxxxx"))
+console.log(dict.searchWords("hellohelloxxx中国xxxworldxxxxxx"))
+console.log(dict.searchWords("hellohelloxxx中美国xxxworldxxxxxx"))
+console.log(dict.searchWords("heherhershishelloworld中国美国"))
 ```
