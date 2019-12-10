@@ -39,6 +39,8 @@
   
     - [keyword_search_trie](https://github.com/charleslxh/algorithms/blob/master/keyword_search_trie.md)：敏感词查询，trie 实现。
     - [keyword_search_ac](https://github.com/charleslxh/algorithms/blob/master/keyword_search_ac.md)：敏感词查询，AC 算法实现。
+    - [keyword_search_dfa](https://github.com/charleslxh/algorithms/blob/master/keyword_search_dfa.md)：敏感词查询，DFA 算法实现。
+
 
 - 其他：
 
