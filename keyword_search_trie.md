@@ -221,7 +221,7 @@ func TestTire_SearchWords(t *testing.T) {
 }
 ```
 
-2. `Javascript` 实现源码：
+2. `JavaScript` 实现源码：
 
 ```js
 function TrieNode(value) {
